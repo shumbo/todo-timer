@@ -8,6 +8,7 @@ import { Pane, TabNavigation, Tab, Button, Dialog } from 'evergreen-ui';
 import { Filter, Status } from '../models/task.model';
 import { addTaskAction, setFilterAction } from '../store/task';
 import AddTaskDialog from '../components/AddTaskDialog';
+import FilterTabs from '../components/FilterTabs';
 
 interface PropsFromState {
   filter: Filter;
@@ -32,29 +33,7 @@ const Toolbar: React.SFC<Props> = ({ add, filter, setFilter }) => {
   return (
     <>
       <Pane marginTop="1rem" display="flex" justifyContent="space-between">
-        <TabNavigation>
-          <Tab isSelected={filter === null} onSelect={() => setFilter(null)}>
-            ALL
-          </Tab>
-          <Tab
-            isSelected={filter === Status.IN_PROGRESS}
-            onSelect={() => setFilter(Status.IN_PROGRESS)}
-          >
-            IN PROGRESS
-          </Tab>
-          <Tab
-            isSelected={filter === Status.TODO}
-            onSelect={() => setFilter(Status.TODO)}
-          >
-            TODO
-          </Tab>
-          <Tab
-            isSelected={filter === Status.DONE}
-            onSelect={() => setFilter(Status.DONE)}
-          >
-            DONE
-          </Tab>
-        </TabNavigation>
+        <FilterTabs filter={filter} onSelect={filter => setFilter(filter)} />
         <Button onClick={() => setState({ ...state, addDialogVisible: true })}>
           Add Task
         </Button>
