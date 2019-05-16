@@ -101,7 +101,6 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
       };
       return { ...state, tasks: [task, ...state.tasks] };
     case ActionTypes.EDIT_TASK:
-      console.log(action.task.status === Status.IN_PROGRESS)
       return {
         ...state,
         tasks: state.tasks.map(task =>
