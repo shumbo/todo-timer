@@ -95,6 +95,8 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
         tasks: state.tasks.map(task =>
           task.id === action.taskId
             ? { ...task, status: Status.IN_PROGRESS }
+            : task.status === Status.IN_PROGRESS
+            ? { ...task, status: Status.TODO }
             : task
         ),
         timer: {
@@ -131,8 +133,8 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
     case ActionTypes.SET_FILTER:
       return {
         ...state,
-        filter: action.filter
-      }
+        filter: action.filter,
+      };
     default:
       return state;
   }
