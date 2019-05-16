@@ -55,7 +55,7 @@ describe('Todo', () => {
     const taskId = store.getState().tasks[0].id;
     store.dispatch(Task.startTaskAction(taskId));
     store.dispatch(Task.stopTaskAction());
-    expect(store.getState().timer).toEqual({}); // reset
+    expect(store.getState().timer).toEqual({});
     expect(store.getState().tasks[0].history.length).toBe(1);
     expect(store.getState().tasks[0].status).toBe(Status.TODO);
   });

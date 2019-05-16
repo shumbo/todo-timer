@@ -1,4 +1,4 @@
-import { Action, ActionCreator, Reducer } from 'redux';
+import { Action, Reducer } from 'redux';
 import uuid from 'uuid/v4';
 
 import { Task, TaskSeed, TaskId, Status, Filter } from '../models/task.model';

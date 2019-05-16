@@ -6,7 +6,7 @@ import { RootState, RootAction } from '../store';
 import { Pane } from 'evergreen-ui';
 
 import { Task, Filter, TaskId } from '../models/task.model';
-import { addTaskAction, completeTaskAction } from '../store/task';
+import { completeTaskAction } from '../store/task';
 
 import TaskCard from '../components/TaskCard';
 
