@@ -3,9 +3,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RootState, RootAction } from '../store';
 
-import { Pane, TabNavigation, Tab, Button, Dialog } from 'evergreen-ui';
+import { Pane, Button, Dialog } from 'evergreen-ui';
 
-import { Filter, Status } from '../models/task.model';
+import { Filter } from '../models/task.model';
 import { addTaskAction, setFilterAction } from '../store/task';
 import AddTaskDialog from '../components/AddTaskDialog';
 import FilterTabs from '../components/FilterTabs';
