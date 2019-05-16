@@ -11,6 +11,7 @@ import {
   startTaskAction,
   stopTaskAction,
   editTaskAction,
+  deleteTaskAction,
 } from '../store/task';
 
 import TaskCard from '../components/TaskCard';
@@ -24,10 +25,18 @@ interface PropsToDispatch {
   start: (taskId: TaskId) => void;
   stop: () => void;
   edit: (task: Task) => void;
+  remove: (taskId: TaskId) => void;
 }
 type Props = PropsFromState & PropsToDispatch;
 
-const Tasks: React.SFC<Props> = ({ tasks, complete, start, stop, edit }) => {
+const Tasks: React.SFC<Props> = ({
+  tasks,
+  complete,
+  start,
+  stop,
+  edit,
+  remove,
+}) => {
   return (
     <>
       <Pane>
@@ -40,6 +49,7 @@ const Tasks: React.SFC<Props> = ({ tasks, complete, start, stop, edit }) => {
               onStart={() => start(task.id)}
               onStop={() => stop()}
               onEdit={task => edit(task)}
+              onDelete={() => remove(task.id)}
             />
           ))}
         </Pane>
@@ -63,6 +73,7 @@ const mapDispatchToProps = (
   start: (taskId: TaskId) => dispatch(startTaskAction(taskId)),
   stop: () => dispatch(stopTaskAction()),
   edit: (task: Task) => dispatch(editTaskAction(task)),
+  remove: (taskId: TaskId) => dispatch(deleteTaskAction(taskId)),
 });
 
 export default connect(

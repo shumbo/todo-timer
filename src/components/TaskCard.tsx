@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { differenceInSeconds, distanceInWordsStrict } from 'date-fns';
-import { Pane, Text, Button, Dialog } from 'evergreen-ui';
+import { Pane, Text, Button, Dialog, Heading } from 'evergreen-ui';
 
 import { Task, Status } from '../models/task.model';
 import EditTaskDialog from './EditTaskDialog';
+import TaskCardBadge from './TaskCardBadge';
+import TaskCardMenu from './TaskCardMenu';
+import TaskHistory from './TaskHistory';
 
 const duration = (seconds: number) => distanceInWordsStrict(0, seconds * 1000);
 
@@ -13,6 +16,7 @@ interface Props {
   onStart?: () => void;
   onStop?: () => void;
   onEdit?: (task: Task) => void;
+  onDelete?: () => void;
 }
 const TaskCard: React.SFC<Props> = ({
   task,
@@ -20,8 +24,10 @@ const TaskCard: React.SFC<Props> = ({
   onStart,
   onStop,
   onEdit,
+  onDelete,
 }) => {
   const [visibleEditDialog, setVisibleEditDialog] = React.useState(false);
+  const [visibleHistoryDialog, setVisibleHistoryDialog] = React.useState(false);
   const [editingTask, setEditingTask] = React.useState<Task>(task);
   return (
     <>
@@ -34,10 +40,11 @@ const TaskCard: React.SFC<Props> = ({
       >
         <Pane flex={1} display="flex" flexDirection="column">
           <Pane>
-            <Text>{task.title}</Text>
+            <TaskCardBadge status={task.status} />
+            <Heading marginTop="0.4rem">{task.title}</Heading>
           </Pane>
           {task.history.length > 0 && (
-            <Pane>
+            <Pane marginTop="0.4rem">
               <Text>
                 Spent
                 {' ' +
@@ -53,12 +60,6 @@ const TaskCard: React.SFC<Props> = ({
           )}
         </Pane>
         <Pane display="flex">
-          <Button
-            marginRight=".6rem"
-            onClick={() => setVisibleEditDialog(true)}
-          >
-            Edit
-          </Button>
           {(() => {
             switch (task.status) {
               case Status.TODO:
@@ -75,6 +76,7 @@ const TaskCard: React.SFC<Props> = ({
                       intent="success"
                       appearance="primary"
                       onClick={onComplete}
+                      marginRight=".6rem"
                     >
                       Complete
                     </Button>
@@ -97,29 +99,40 @@ const TaskCard: React.SFC<Props> = ({
                         onStop && onStop();
                         onComplete && onComplete();
                       }}
+                      marginRight=".6rem"
                     >
                       Complete
                     </Button>
                   </>
                 );
-              case Status.DONE:
-                return (
-                  <>
-                    <Button disabled>Done</Button>
-                  </>
-                );
             }
           })()}
+          <TaskCardMenu
+            openHistory={() => setVisibleHistoryDialog(true)}
+            onEdit={() => setVisibleEditDialog(true)}
+            onDelete={() => onDelete && onDelete()}
+          />
         </Pane>
       </Pane>
       <Dialog
         isShown={visibleEditDialog}
         title="Edit Task"
         onCloseComplete={() => setVisibleEditDialog(false)}
-        onConfirm={() => (onEdit && onEdit(editingTask)) && setVisibleEditDialog(false)}
+        onConfirm={() =>
+          onEdit && onEdit(editingTask) && setVisibleEditDialog(false)
+        }
         isConfirmDisabled={editingTask.title === ''}
       >
         <EditTaskDialog task={task} onChange={task => setEditingTask(task)} />
+      </Dialog>
+      <Dialog
+        isShown={visibleHistoryDialog}
+        title="History"
+        onCloseComplete={() => setVisibleHistoryDialog(false)}
+        hasCancel={false}
+        confirmLabel="OK"
+      >
+        <TaskHistory task={task} />
       </Dialog>
     </>
   );
