@@ -38,23 +38,19 @@ const Tasks: React.SFC<Props> = ({
   remove,
 }) => {
   return (
-    <>
-      <Pane>
-        <Pane>
-          {tasks.map(task => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onComplete={() => complete(task.id)}
-              onStart={() => start(task.id)}
-              onStop={() => stop()}
-              onEdit={task => edit(task)}
-              onDelete={() => remove(task.id)}
-            />
-          ))}
-        </Pane>
-      </Pane>
-    </>
+    <Pane>
+      {tasks.map(task => (
+        <TaskCard
+          key={task.id}
+          task={task}
+          onComplete={() => complete(task.id)}
+          onStart={() => start(task.id)}
+          onStop={() => stop()}
+          onEdit={task => edit(task)}
+          onDelete={() => remove(task.id)}
+        />
+      ))}
+    </Pane>
   );
 };
 
