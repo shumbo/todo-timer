@@ -61,6 +61,8 @@ describe('Todo', () => {
   });
   it('should handle SET_FILTER', () => {
     store.dispatch(Task.setFilterAction(Status.DONE));
-    expect(store.getState().filter).toEqual(Status.DONE); // reset
+    expect(store.getState().filter).toEqual(Status.DONE);
+    store.dispatch(Task.setFilterAction(null));
+    expect(store.getState().filter).toBe(null);
   });
 });
