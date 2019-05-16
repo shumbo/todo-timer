@@ -7,27 +7,33 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname+ '/dist'),
-    publicPath: '/'
+    path: path.join(__dirname + '/dist'),
+    publicPath: '/',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json', '.css']
+    extensions: ['.ts', '.tsx', '.js', '.json', '.css'],
   },
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+      {
+        test: /\.tsx?$/,
+        exclude: ['/node_modules/', '**/*.test.ts'],
+        loader: 'ts-loader',
+      },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
-      }
-    ]
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/index.html')
+      template: path.join(__dirname, 'src/index.html'),
     }),
-    new CopyWebpackPlugin([{
-      from: 'public'
-    }])
-  ]
+    new CopyWebpackPlugin([
+      {
+        from: 'public',
+      },
+    ]),
+  ],
 };
