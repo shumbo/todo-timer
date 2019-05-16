@@ -48,6 +48,9 @@ describe('Todo', () => {
     expect(
       store.getState().tasks.find(task => task.id === taskId1)!.status
     ).toBe(Status.TODO);
+    expect(
+      store.getState().tasks.find(task => task.id === taskId1)!.history.length
+    ).toBe(1);
   });
   it('should handle STOP_TASK', () => {
     store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
