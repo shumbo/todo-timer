@@ -1,14 +1,22 @@
 import * as React from 'react';
+import {
+  distanceInWords,
+  differenceInSeconds,
+  distanceInWordsStrict,
+} from 'date-fns';
 import { Pane, Text, Button } from 'evergreen-ui';
 
 import { Task, Status } from '../models/task.model';
 
+const duration = (seconds: number) => distanceInWordsStrict(0, seconds * 1000);
+
 interface Props {
   task: Task;
-  onComplete?: React.MouseEventHandler;
-  onStart?: React.MouseEventHandler;
+  onComplete?: () => void;
+  onStart?: () => void;
+  onStop?: () => void;
 }
-const TaskCard: React.SFC<Props> = ({ task, onComplete, onStart }) => (
+const TaskCard: React.SFC<Props> = ({ task, onComplete, onStart, onStop }) => (
   <Pane
     elevation={1}
     marginTop="0.6rem"
@@ -16,8 +24,24 @@ const TaskCard: React.SFC<Props> = ({ task, onComplete, onStart }) => (
     display="flex"
     justifyContent="space-between"
   >
-    <Pane flex={1} display="flex" alignItems="center">
-      <Text>{task.title}</Text>
+    <Pane flex={1} display="flex" flexDirection="column">
+      <Pane>
+        <Text>{task.title}</Text>
+      </Pane>
+      {task.history.length > 0 && (
+        <Pane>
+          <Text>
+            Spent
+            {' ' +
+              duration(
+                task.history.reduce(
+                  (a, { start, end }) => a + differenceInSeconds(end, start),
+                  0
+                )
+              )}
+          </Text>
+        </Pane>
+      )}
     </Pane>
     <Pane display="flex">
       {(() => {
@@ -37,12 +61,30 @@ const TaskCard: React.SFC<Props> = ({ task, onComplete, onStart }) => (
                 </Button>
               </>
             );
+          case Status.IN_PROGRESS:
+            return (
+              <>
+                <Button intent="danger" onClick={onStop} marginRight=".6rem">
+                  Stop
+                </Button>
+                <Button
+                  intent="success"
+                  appearance="primary"
+                  onClick={() => {
+                    onStop && onStop();
+                    onComplete && onComplete();
+                  }}
+                >
+                  Complete
+                </Button>
+              </>
+            );
           case Status.DONE:
-              return (
-                <>
-                  <Button disabled>Done</Button>
-                </>
-              )
+            return (
+              <>
+                <Button disabled>Done</Button>
+              </>
+            );
         }
       })()}
     </Pane>

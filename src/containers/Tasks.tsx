@@ -6,7 +6,11 @@ import { RootState, RootAction } from '../store';
 import { Pane } from 'evergreen-ui';
 
 import { Task, Filter, TaskId } from '../models/task.model';
-import { completeTaskAction } from '../store/task';
+import {
+  completeTaskAction,
+  startTaskAction,
+  stopTaskAction,
+} from '../store/task';
 
 import TaskCard from '../components/TaskCard';
 
@@ -16,10 +20,12 @@ interface PropsFromState {
 }
 interface PropsToDispatch {
   complete: (taskId: TaskId) => void;
+  start: (taskId: TaskId) => void;
+  stop: () => void;
 }
 type Props = PropsFromState & PropsToDispatch;
 
-const Tasks: React.SFC<Props> = ({ tasks, complete }) => {
+const Tasks: React.SFC<Props> = ({ tasks, complete, start, stop }) => {
   return (
     <>
       <Pane>
@@ -29,6 +35,8 @@ const Tasks: React.SFC<Props> = ({ tasks, complete }) => {
               key={task.id}
               task={task}
               onComplete={() => complete(task.id)}
+              onStart={() => start(task.id)}
+              onStop={() => stop()}
             />
           ))}
         </Pane>
@@ -49,6 +57,8 @@ const mapDispatchToProps = (
   dispatch: Dispatch<RootAction>
 ): PropsToDispatch => ({
   complete: (taskId: TaskId) => dispatch(completeTaskAction(taskId)),
+  start: (taskId: TaskId) => dispatch(startTaskAction(taskId)),
+  stop: () => dispatch(stopTaskAction()),
 });
 
 export default connect(

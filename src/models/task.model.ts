@@ -1,6 +1,6 @@
 export enum Status {
-  TODO,
   IN_PROGRESS,
+  TODO,
   DONE,
 }
 

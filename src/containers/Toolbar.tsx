@@ -37,6 +37,12 @@ const Toolbar: React.SFC<Props> = ({ add, filter, setFilter }) => {
             ALL
           </Tab>
           <Tab
+            isSelected={filter === Status.IN_PROGRESS}
+            onSelect={() => setFilter(Status.IN_PROGRESS)}
+          >
+            IN PROGRESS
+          </Tab>
+          <Tab
             isSelected={filter === Status.TODO}
             onSelect={() => setFilter(Status.TODO)}
           >
