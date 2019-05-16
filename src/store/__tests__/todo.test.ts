@@ -21,6 +21,7 @@ describe('Todo', () => {
   });
   it('should handle COMPLETE_TASK', () => {
     store.dispatch(Todo.addTaskAction({ title: 'demo todo' }));
+    store.dispatch(Todo.addTaskAction({ title: 'demo todo2' }));
     store.dispatch(Todo.completeTaskAction(store.getState().tasks[0].id));
     expect(
       store.getState().tasks.filter(task => task.status === Status.DONE).length
@@ -28,6 +29,7 @@ describe('Todo', () => {
   });
   it('should handle START_TASK', () => {
     store.dispatch(Todo.addTaskAction({ title: 'demo todo' }));
+    store.dispatch(Todo.addTaskAction({ title: 'demo todo2' }));
     const taskId = store.getState().tasks[0].id;
     store.dispatch(Todo.startTaskAction(taskId));
     expect(
@@ -38,6 +40,7 @@ describe('Todo', () => {
   });
   it('should handle STOP_TASK', () => {
     store.dispatch(Todo.addTaskAction({ title: 'demo todo' }));
+    store.dispatch(Todo.addTaskAction({ title: 'demo todo2' }));
     const taskId = store.getState().tasks[0].id;
     store.dispatch(Todo.startTaskAction(taskId));
     store.dispatch(Todo.stopTaskAction());
