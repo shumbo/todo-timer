@@ -23,7 +23,7 @@ module.exports = {
       // load .ts and .tsx via 'ts-loader'
       {
         test: /\.tsx?$/,
-        exclude: ['/node_modules/', '**/*.test.ts'],
+        exclude: /\.test\.ts$/,
         loader: 'ts-loader',
       },
 
@@ -47,7 +47,6 @@ module.exports = {
       },
     ]),
   ],
-
   devServer: {
     historyApiFallback: true,
   },

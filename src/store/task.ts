@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 
 import { Task, TaskSeed, TaskId, Status, Filter } from '../models/task.model';
 
-export interface TodoState {
+export interface TaskState {
   tasks: Task[];
   filter: Filter; // set to null if no filter to be applied
   timer: {
@@ -12,7 +12,7 @@ export interface TodoState {
   };
 }
 
-const initialState: TodoState = {
+const initialState: TaskState = {
   tasks: [],
   filter: null,
   timer: {},
@@ -69,14 +69,14 @@ export const setFilterAction = (filter: Filter): SetFilterAction => ({
   filter,
 });
 
-export type TodoActions =
+export type TaskActions =
   | AddTaskAction
   | StartTaskAction
   | StopTaskAction
   | CompleteTaskAction
   | SetFilterAction;
 
-const todoReducer: Reducer<TodoState, TodoActions> = (
+const taskReducer: Reducer<TaskState, TaskActions> = (
   state = initialState,
   action
 ) => {
@@ -138,4 +138,4 @@ const todoReducer: Reducer<TodoState, TodoActions> = (
   }
 };
 
-export default todoReducer;
+export default taskReducer;

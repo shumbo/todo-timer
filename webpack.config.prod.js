@@ -17,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: ['/node_modules/', '**/*.test.ts'],
+        exclude: /node_modules/,
         loader: 'ts-loader',
       },
       {
@@ -36,4 +36,9 @@ module.exports = {
       },
     ]),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };

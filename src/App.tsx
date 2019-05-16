@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { Button, Modal } from 'antd';
+import { Pane } from 'evergreen-ui';
 
-const App = () => {
-  const [s, setS] = React.useState<boolean>(false);
-  return (
-    <>
-      <p>Hello, World.</p>
-      <Button onClick={() => setS(!s)}>poe</Button>
-      <Modal visible={s} onOk={() => setS(!s)}>モーダルの中身</Modal>
-    </>
-  );
-};
+import Tasks from './containers/Tasks';
+import Toolbar from './containers/Toolbar';
+
+const App = () => (
+  <Pane display="flex" justifyContent="center">
+    <Pane maxWidth="100%" width="640px">
+      <Toolbar />
+      <Tasks />
+    </Pane>
+  </Pane>
+);
 
 export default App;

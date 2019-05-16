@@ -1,6 +1,18 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 
-const rootReducer = combineReducers({});
+import TaskReducer, { TaskActions, TaskState } from './task';
 
-export const configureStore = () => createStore(rootReducer);
-export default configureStore;
+const rootReducer = combineReducers({
+  task: TaskReducer,
+});
+
+export type RootState = {
+  task: TaskState;
+};
+
+export type RootAction = TaskActions;
+
+export const configureStore = () =>
+  createStore(rootReducer, applyMiddleware(logger));
+export default configureStore();
