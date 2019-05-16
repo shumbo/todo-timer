@@ -39,6 +39,13 @@ describe('Todo', () => {
     );
     expect(store.getState().tasks.length).toEqual(1); // random id does not affect
   });
+  it('should handle DELETE_TASK', () => {
+    store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
+    store.dispatch(Task.addTaskAction({ title: 'demo todo2' }));
+    const taskId = store.getState().tasks[0].id;
+    store.dispatch(Task.deleteTaskAction(taskId));
+    expect(store.getState().tasks.length).toBe(1);
+  });
   it('should handle COMPLETE_TASK', () => {
     store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
     store.dispatch(Task.addTaskAction({ title: 'demo todo2' }));

@@ -21,6 +21,7 @@ const initialState: TaskState = {
 enum ActionTypes {
   ADD_TASK,
   EDIT_TASK,
+  DELETE_TASK,
   START_TASK,
   STOP_TASK,
   COMPLETE_TASK,
@@ -43,6 +44,15 @@ interface EditTaskAction extends Action {
 export const editTaskAction = (task: Task): EditTaskAction => ({
   type: ActionTypes.EDIT_TASK,
   task,
+});
+
+interface DeleteTaskAction extends Action {
+  type: ActionTypes.DELETE_TASK;
+  taskId: TaskId;
+}
+export const deleteTaskAction = (taskId: TaskId): DeleteTaskAction => ({
+  type: ActionTypes.DELETE_TASK,
+  taskId,
 });
 
 interface StartTaskAction extends Action {
@@ -82,6 +92,7 @@ export const setFilterAction = (filter: Filter): SetFilterAction => ({
 export type TaskActions =
   | AddTaskAction
   | EditTaskAction
+  | DeleteTaskAction
   | StartTaskAction
   | StopTaskAction
   | CompleteTaskAction
@@ -103,13 +114,19 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
     case ActionTypes.EDIT_TASK:
       return {
         ...state,
-        tasks: state.tasks.map(task =>
-          task.id === action.task.id // match the task to update with id 
-            ? action.task.status === Status.IN_PROGRESS // cannot set to IN_PROGRESS
-              ? { ...action.task, status: task.status } // use original status
-              : action.task // update task
-            : task // return original task otherwise
+        tasks: state.tasks.map(
+          task =>
+            task.id === action.task.id // match the task to update with id
+              ? action.task.status === Status.IN_PROGRESS // cannot set to IN_PROGRESS
+                ? { ...action.task, status: task.status } // use original status
+                : action.task // update task
+              : task // return original task otherwise
         ),
+      };
+    case ActionTypes.DELETE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.filter(({ id }) => id !== action.taskId),
       };
     case ActionTypes.START_TASK:
       return {
