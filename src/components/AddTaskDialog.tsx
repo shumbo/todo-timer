@@ -14,6 +14,7 @@ const AddTaskDialog: React.SFC<Props> = props => {
       <TextInputField
         label="Title"
         placeholder="Buy eggs"
+        required
         value={title}
         onChange={(event: React.FormEvent<HTMLInputElement>) => {
           setTitle(event.currentTarget.value);

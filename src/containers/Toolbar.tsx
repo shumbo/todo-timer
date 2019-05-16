@@ -66,6 +66,7 @@ const Toolbar: React.SFC<Props> = ({ add, filter, setFilter }) => {
           add(state.newTaskTitle);
           setState({ ...state, addDialogVisible: false });
         }}
+        isConfirmDisabled={state.newTaskTitle === ''}
         title="New Task"
       >
         <AddTaskDialog
