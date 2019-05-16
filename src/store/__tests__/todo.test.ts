@@ -19,6 +19,26 @@ describe('Todo', () => {
     store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
     expect(store.getState().tasks.length).toBe(1);
   });
+  it('should handle EDIT_TASK', () => {
+    store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
+    let task = { ...store.getState().tasks[0] };
+    task.title = 'updated title';
+    store.dispatch(Task.editTaskAction(task));
+    expect(store.getState().tasks[0].title).toEqual('updated title'); // can update
+    task = { ...store.getState().tasks[0] };
+    task.status = Status.IN_PROGRESS;
+    store.dispatch(Task.editTaskAction(task));
+    expect(store.getState().tasks[0].status).toEqual(Status.TODO); // cannot set to IN_PROGRESS
+    store.dispatch(
+      Task.editTaskAction({
+        id: 'randomID',
+        title: 'random task',
+        history: [],
+        status: Status.TODO,
+      })
+    );
+    expect(store.getState().tasks.length).toEqual(1); // random id does not affect
+  });
   it('should handle COMPLETE_TASK', () => {
     store.dispatch(Task.addTaskAction({ title: 'demo todo' }));
     store.dispatch(Task.addTaskAction({ title: 'demo todo2' }));
