@@ -95,21 +95,19 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
         tasks: state.tasks.map(task =>
           task.id === action.taskId
             ? { ...task, status: Status.IN_PROGRESS } // the task to start
-            : task.status === Status.IN_PROGRESS // current task in progress
-            ? task.id === state.timer.ongoingTaskId // current task in progress that is recorded in timer
-              ? {
-                  ...task,
-                  status: Status.TODO,
-                  history: [
-                    ...task.history,
-                    {
-                      id: uuid(),
-                      start: state.timer.startAt!,
-                      end: new Date(),
-                    },
-                  ], // append the log to history
-                }
-              : { ...task, status: Status.TODO } // not recorded, just set the status to TODO
+            : task.id === state.timer.ongoingTaskId // current task in progress that is recorded in timer
+            ? {
+                ...task,
+                status: Status.TODO,
+                history: [
+                  ...task.history,
+                  {
+                    id: uuid(),
+                    start: state.timer.startAt!,
+                    end: new Date(),
+                  },
+                ], // append the log to history
+              }
             : task
         ),
         timer: {
@@ -120,19 +118,21 @@ const taskReducer: Reducer<TaskState, TaskActions> = (
     case ActionTypes.STOP_TASK:
       return {
         ...state,
-        tasks: state.tasks.map(_task => {
-          const task = { ..._task };
-          if (task.status === Status.IN_PROGRESS) {
-            task.status = Status.TODO;
-          }
-          if (task.id === state.timer.ongoingTaskId) {
-            task.history.push({
-              id: uuid(),
-              start: state.timer.startAt!,
-              end: new Date(),
-            });
-          }
-          return task;
+        tasks: state.tasks.map(task => {
+          return task.id === state.timer.ongoingTaskId
+            ? {
+                ...task,
+                status: Status.TODO,
+                history: [
+                  ...task.history,
+                  {
+                    id: uuid(),
+                    start: state.timer.startAt!,
+                    end: new Date(),
+                  },
+                ],
+              }
+            : task;
         }),
         timer: {},
       };

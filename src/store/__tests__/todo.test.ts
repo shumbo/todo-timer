@@ -1,7 +1,7 @@
 import * as Task from '../task';
 import { createStore, Store } from 'redux';
 import reducer from '../task';
-import { Status, Filter } from '../../models/task.model';
+import { Status } from '../../models/task.model';
 
 describe('Todo', () => {
   let store: Store<Task.TaskState>;
