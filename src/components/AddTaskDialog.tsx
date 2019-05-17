@@ -4,11 +4,10 @@ import { Pane, TextInputField } from 'evergreen-ui';
 import { Task } from '../models/task.model';
 
 interface Props {
-  task?: Task;
   onChange?: (title: string) => void;
 }
 const AddTaskDialog: React.SFC<Props> = props => {
-  const [title, setTitle] = React.useState(props.task ? props.task.title : '');
+  const [title, setTitle] = React.useState('');
   return (
     <Pane>
       <TextInputField
