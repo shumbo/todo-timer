@@ -7,8 +7,7 @@ import EditTaskDialog from './EditTaskDialog';
 import TaskCardBadge from './TaskCardBadge';
 import TaskCardMenu from './TaskCardMenu';
 import TaskHistory from './TaskHistory';
-
-const duration = (seconds: number) => distanceInWordsStrict(0, seconds * 1000);
+import { totalWorkTime } from '../utils/totalWorkTime';
 
 interface Props {
   task: Task;
@@ -38,7 +37,12 @@ const TaskCard: React.SFC<Props> = ({
         display="flex"
         justifyContent="space-between"
       >
-        <Pane flex={1} display="flex" flexDirection="column" marginRight="0.4rem">
+        <Pane
+          flex={1}
+          display="flex"
+          flexDirection="column"
+          marginRight="0.4rem"
+        >
           <Pane>
             <TaskCardBadge status={task.status} />
             <Heading marginTop="0.4rem">{task.title}</Heading>
@@ -47,14 +51,7 @@ const TaskCard: React.SFC<Props> = ({
             <Pane marginTop="0.4rem">
               <Text>
                 Spent
-                {' ' +
-                  duration(
-                    task.history.reduce(
-                      (a, { start, end }) =>
-                        a + differenceInSeconds(end, start),
-                      0
-                    )
-                  )}
+                {' ' + distanceInWordsStrict(0, totalWorkTime(task.history))}
               </Text>
             </Pane>
           )}
