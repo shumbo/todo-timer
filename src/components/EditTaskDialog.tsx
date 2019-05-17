@@ -5,12 +5,12 @@ import { Task, Status } from '../models/task.model';
 
 interface Props {
   task: Task;
-  onChange?: (task: Task) => void;
+  onChange: (task: Task) => void;
 }
 const EditTaskDialog: React.SFC<Props> = props => {
   const [task, setTask] = React.useState<Task>(props.task);
   React.useEffect(() => {
-    props.onChange && props.onChange(task);
+    props.onChange(task);
   }, [task]);
   return (
     <Pane>
