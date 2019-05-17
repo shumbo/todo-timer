@@ -24,7 +24,7 @@ const TaskHistory: React.SFC<Props> = ({ task }) => (
           {distanceInWordsStrict(0, totalWorkTime(task.history))} on this task.
         </Paragraph>
       ) : (
-        <Paragraph>You have not worked no this task. </Paragraph>
+        <Paragraph>You have not worked no this task.</Paragraph>
       )}
     </Pane>
     <Heading size={400} marginTop="0.6rem">
