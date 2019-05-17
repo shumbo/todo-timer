@@ -9,22 +9,29 @@ interface Props {
 
 const FilterTabs: React.SFC<Props> = ({ filter, onSelect }) => (
   <TabNavigation>
-    <Tab isSelected={filter === null} onSelect={() => onSelect(null)}>
+    <Tab
+      name="ALL"
+      isSelected={filter === null}
+      onSelect={() => onSelect(null)}
+    >
       ALL
     </Tab>
     <Tab
+      name="IN_PROGRESS"
       isSelected={filter === Status.IN_PROGRESS}
       onSelect={() => onSelect(Status.IN_PROGRESS)}
     >
       IN PROGRESS
     </Tab>
     <Tab
+      name="TODO"
       isSelected={filter === Status.TODO}
       onSelect={() => onSelect(Status.TODO)}
     >
       TODO
     </Tab>
     <Tab
+      name="DONE"
       isSelected={filter === Status.DONE}
       onSelect={() => onSelect(Status.DONE)}
     >
