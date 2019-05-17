@@ -1,4 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import logger from 'redux-logger';
 
 import TaskReducer, { TaskActions, TaskState } from './task';
@@ -13,6 +16,17 @@ export type RootState = {
 
 export type RootAction = TaskActions;
 
-export const configureStore = () =>
-  createStore(rootReducer, applyMiddleware(logger));
+const persistConfig: PersistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const configureStore = () => {
+  let store = createStore(persistedReducer, applyMiddleware(logger));
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
+
 export default configureStore();
