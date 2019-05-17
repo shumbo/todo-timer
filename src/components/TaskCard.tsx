@@ -38,7 +38,7 @@ const TaskCard: React.SFC<Props> = ({
         display="flex"
         justifyContent="space-between"
       >
-        <Pane flex={1} display="flex" flexDirection="column">
+        <Pane flex={1} display="flex" flexDirection="column" marginRight="0.4rem">
           <Pane>
             <TaskCardBadge status={task.status} />
             <Heading marginTop="0.4rem">{task.title}</Heading>
@@ -59,7 +59,7 @@ const TaskCard: React.SFC<Props> = ({
             </Pane>
           )}
         </Pane>
-        <Pane display="flex">
+        <Pane display="flex" alignItems="top">
           {(() => {
             switch (task.status) {
               case Status.TODO:

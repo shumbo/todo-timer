@@ -37,8 +37,8 @@ const TaskHistory: React.SFC<Props> = ({ task }) => (
     <Heading size={400} marginTop="0.6rem">Details</Heading>
     {task.history.length > 0 ? task.history.map(history => (
       <Paragraph key={history.id} marginTop="0.2rem">
-        {format(history.start, 'MM/DD H:m:s')} ~{' '}
-        {format(history.end, 'MM/DD H:m:s')}{' '}
+        {format(history.start, 'MM/DD HH:mm:ss')} ~{' '}
+        {format(history.end, 'MM/DD HH:mm:ss')}{' '}
         {distanceInWordsStrict(history.end, history.start)}
       </Paragraph>
     )): <Paragraph marginTop="0.2rem">
