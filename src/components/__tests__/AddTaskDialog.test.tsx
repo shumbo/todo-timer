@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow, render, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { TextInputField } from 'evergreen-ui';
 
@@ -11,7 +11,7 @@ describe('AddTaskDialog', () => {
   });
   it('should call onChange on type', () => {
     const onChange = jest.fn();
-    const wrapper = mount(<AddTaskDialog onChange={onChange} />);
+    const wrapper = shallow(<AddTaskDialog onChange={onChange} />);
     act(() => {
       wrapper.find(TextInputField).prop<Function>('onChange')({
         currentTarget: { value: 'poe' },
