@@ -35,8 +35,14 @@ module.exports = {
       name: 'TodoTimer',
       short_name: 'Todo',
       description: 'A simple Todo app with timer',
+      icons: [
+        {
+          src: path.join(__dirname, 'public/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512, 1024],
+        },
+      ],
       background_color: '#ffffff',
-      ios: true
+      ios: true,
     }),
     new CopyWebpackPlugin([
       {
