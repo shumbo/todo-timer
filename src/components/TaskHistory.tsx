@@ -1,13 +1,21 @@
 import * as React from 'react';
 import { Pane, Paragraph, Heading } from 'evergreen-ui';
-import {
-  format,
-  distanceInWordsStrict,
-  differenceInMilliseconds,
-} from 'date-fns';
+import { format, distanceInWordsStrict } from 'date-fns';
 
-import { Task } from '../models/task.model';
+import { Task, History } from '../models/task.model';
 import { totalWorkTime } from '../utils/totalWorkTime';
+
+export function workSummary(history: History[]): string {
+  if (history.length > 0) {
+    return `You worked ${history.length} time${
+      history.length !== 1 ? 's' : ''
+    } and spent ${distanceInWordsStrict(
+      0,
+      totalWorkTime(history)
+    )} on this task.`;
+  }
+  return 'You have not worked no this task.';
+}
 
 interface Props {
   task: Task;
@@ -17,22 +25,18 @@ const TaskHistory: React.SFC<Props> = ({ task }) => (
   <Pane>
     <Heading size={400}>Overview</Heading>
     <Pane marginTop="0.2rem">
-      {task.history.length > 0 ? (
-        <Paragraph>
-          You worked {task.history.length} time
-          {task.history.length !== 1 && 's'} and spent{' '}
-          {distanceInWordsStrict(0, totalWorkTime(task.history))} on this task.
-        </Paragraph>
-      ) : (
-        <Paragraph>You have not worked no this task.</Paragraph>
-      )}
+      <Paragraph>{workSummary(task.history)}</Paragraph>
     </Pane>
     <Heading size={400} marginTop="0.6rem">
       Details
     </Heading>
     {task.history.length > 0 ? (
       task.history.map(history => (
-        <Paragraph key={history.id} marginTop="0.2rem">
+        <Paragraph
+          className="historyListElement"
+          key={history.id}
+          marginTop="0.2rem"
+        >
           {format(history.start, 'MM/DD HH:mm:ss')} ~{' '}
           {format(history.end, 'MM/DD HH:mm:ss')}{' '}
           {distanceInWordsStrict(history.end, history.start)}
