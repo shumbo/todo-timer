@@ -7,7 +7,7 @@ interface Props {
   status: Status;
 }
 
-const TaskCardBadge: React.SFC<Props> = ({ status }) => (
+const TaskCardBadge: React.FC<Props> = ({ status }) => (
   <Pane>
     {(() => {
       switch (status) {

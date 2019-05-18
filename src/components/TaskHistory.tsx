@@ -21,7 +21,7 @@ interface Props {
   task: Task;
 }
 
-const TaskHistory: React.SFC<Props> = ({ task }) => (
+const TaskHistory: React.FC<Props> = ({ task }) => (
   <Pane>
     <Heading size={400}>Overview</Heading>
     <Pane marginTop="0.2rem">

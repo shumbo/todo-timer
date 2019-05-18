@@ -17,7 +17,7 @@ interface Props {
   onEdit?: (task: Task) => void;
   onDelete?: () => void;
 }
-const TaskCard: React.SFC<Props> = ({
+const TaskCard: React.FC<Props> = ({
   task,
   onComplete,
   onStart,

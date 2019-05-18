@@ -7,7 +7,7 @@ interface Props {
   onSelect: (filter: Filter) => void;
 }
 
-const FilterTabs: React.SFC<Props> = ({ filter, onSelect }) => (
+const FilterTabs: React.FC<Props> = ({ filter, onSelect }) => (
   <TabNavigation>
     <Tab
       name="ALL"

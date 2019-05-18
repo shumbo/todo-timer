@@ -7,7 +7,7 @@ interface Props {
   onDelete: () => void;
 }
 
-const TaskCardMenu: React.SFC<Props> = ({ onEdit, onDelete, openHistory }) => (
+const TaskCardMenu: React.FC<Props> = ({ onEdit, onDelete, openHistory }) => (
   <Popover
     position={Position.BOTTOM_LEFT}
     content={

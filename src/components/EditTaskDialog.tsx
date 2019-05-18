@@ -7,7 +7,7 @@ interface Props {
   task: Task;
   onChange: (task: Task) => void;
 }
-const EditTaskDialog: React.SFC<Props> = props => {
+const EditTaskDialog: React.FC<Props> = props => {
   const [task, setTask] = React.useState<Task>(props.task);
   React.useEffect(() => {
     props.onChange(task);

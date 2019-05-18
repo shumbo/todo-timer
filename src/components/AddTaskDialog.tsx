@@ -6,7 +6,7 @@ import { Task } from '../models/task.model';
 interface Props {
   onChange?: (title: string) => void;
 }
-const AddTaskDialog: React.SFC<Props> = props => {
+const AddTaskDialog: React.FC<Props> = props => {
   const [title, setTitle] = React.useState('');
   return (
     <Pane>

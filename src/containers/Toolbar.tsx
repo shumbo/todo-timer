@@ -28,7 +28,7 @@ const initialState: State = {
   newTaskTitle: '',
 };
 
-const Toolbar: React.SFC<Props> = ({ add, filter, setFilter }) => {
+const Toolbar: React.FC<Props> = ({ add, filter, setFilter }) => {
   const [state, setState] = React.useState<State>(initialState);
   return (
     <>

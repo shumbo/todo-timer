@@ -29,7 +29,7 @@ interface PropsToDispatch {
 }
 type Props = PropsFromState & PropsToDispatch;
 
-const Tasks: React.SFC<Props> = ({
+const Tasks: React.FC<Props> = ({
   tasks,
   complete,
   start,
