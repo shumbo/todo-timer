@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Pane, TextInputField } from 'evergreen-ui';
 
-import { Task } from '../models/task.model';
-
 interface Props {
   onChange?: (title: string) => void;
 }
