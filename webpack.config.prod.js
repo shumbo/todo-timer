@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -29,6 +30,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src/index.html'),
+    }),
+    new WebpackPwaManifest({
+      name: 'TodoTimer',
+      short_name: 'Todo',
+      description: 'A simple Todo app with timer',
+      background_color: '#ffffff',
+      ios: true
     }),
     new CopyWebpackPlugin([
       {
