@@ -39,6 +39,7 @@ module.exports = {
         {
           src: path.join(__dirname, 'public/icon.png'),
           sizes: [96, 128, 192, 256, 384, 512, 1024],
+          ios: true,
         },
       ],
       background_color: '#ffffff',
