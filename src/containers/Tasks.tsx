@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RootState, RootAction } from '../store';
 
-import { Pane } from 'evergreen-ui';
+import { Pane, Alert } from 'evergreen-ui';
 
 import { Task, Filter, TaskId } from '../models/task.model';
 import {
@@ -39,17 +39,25 @@ const Tasks: React.FC<Props> = ({
 }) => {
   return (
     <Pane>
-      {tasks.map(task => (
-        <TaskCard
-          key={task.id}
-          task={task}
-          onComplete={() => complete(task.id)}
-          onStart={() => start(task.id)}
-          onStop={() => stop()}
-          onEdit={task => edit(task)}
-          onDelete={() => remove(task.id)}
+      {tasks.length > 0 ? (
+        tasks.map(task => (
+          <TaskCard
+            key={task.id}
+            task={task}
+            onComplete={() => complete(task.id)}
+            onStart={() => start(task.id)}
+            onStop={() => stop()}
+            onEdit={task => edit(task)}
+            onDelete={() => remove(task.id)}
+          />
+        ))
+      ) : (
+        <Alert
+          intent="none"
+          title="No Applicable Tasks"
+          marginTop="1rem"
         />
-      ))}
+      )}
     </Pane>
   );
 };
