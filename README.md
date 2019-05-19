@@ -15,11 +15,13 @@ In this app, when you start working on a task, press "start". The app records ho
 
 ### Persisted State
 
-Your todo lists are stored on the browsers. If close the tab, the data will not be lost. When you reopen the app, the data will be retrieved.
+Some example todo list apps are useless because they lose the data when you reload the tab. 
+
+In this app, your todo list is stored on the browsers. If close the tab, the data will not be lost. When you reopen the app, the data will be retrieved.
 
 ### Web App Manifest
 
-You can install the app to the homescreen.
+You can install the app to the homescreen. This makes it easier to access and enhance user experience.
 
 The app is available at https://shumbo-todo-timer.netlify.com/
 
@@ -86,11 +88,13 @@ Todoリストは何をしたか記録してくれますが、どれだけの時�
 
 ### 永続化されたステート
 
-Todoリストはブラウザに保存されるため、ページを閉じてもデータは失われません。再度アプリを開けば、データが再度読み込まれます。
+よくあるTodoリストのサンプル実装はリロード時にデータがリセットされてしまうため、実際に使用するには難しい場合があります。
+
+この実装では、Todoリストはブラウザに保存されるためページを閉じてもデータは失われません。再度アプリを開けば、データが再度読み込まれます。
 
 ### Web App Manifest
 
-このアプリをホームスクリーンにインストールすることができます。
+このアプリをホームスクリーンにインストールすることができます。アクセスしやすくなるほか、ユーザーエクスペリエンスも向上します。
 
 アプリは https://shumbo-todo-timer.netlify.com/ にて利用できます。
 
